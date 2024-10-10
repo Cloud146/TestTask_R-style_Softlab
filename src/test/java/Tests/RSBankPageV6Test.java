@@ -2,7 +2,6 @@ package Tests;
 
 import Pages.MainPage;
 import Pages.PageElements;
-import Pages.RSBankPage;
 import Pages.RSBankV6Page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;

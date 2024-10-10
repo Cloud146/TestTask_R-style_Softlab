@@ -3,7 +3,6 @@ package Tests;
 import Helpers.ConfigurationProvider;
 import Helpers.OutputData;
 import Helpers.PageActions;
-import Helpers.Waitings;
 import io.qameta.allure.Description;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +21,6 @@ public class BaseTest {
     ConfigurationProvider configurationProvider = new ConfigurationProvider();
     OutputData outputData = new OutputData();
     PageActions pageActions = new PageActions();
-    Waitings waitings = new Waitings();
 
     public WebDriver getDriver(){
         return driver;
@@ -50,7 +48,6 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
     }
-
 
     @Description("Закрытие браузера/Проверка выполнения теста")
     @AfterTest

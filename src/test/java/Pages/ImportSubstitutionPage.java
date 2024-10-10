@@ -12,15 +12,11 @@ public class ImportSubstitutionPage {
 
     private WebDriver driver;
     PageActions pageActions = new PageActions();
-    Waitings waitings = new Waitings();
 
     public ImportSubstitutionPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
-    @FindBy(xpath = "//nav[@class='header__nav']")
-    public WebElement headerMenu;
 
     /**
      * Веб элемент: Шапка страницы «Импортозамещение»

@@ -1,7 +1,5 @@
 package Pages;
 
-import Helpers.PageActions;
-import Helpers.Waitings;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 public class MainPage {
 
     private WebDriver driver;
-    PageActions pageActions = new PageActions();
-    Waitings waitings = new Waitings();
 
     public MainPage(WebDriver driver){
         this.driver = driver;

@@ -1,7 +1,6 @@
 package Pages;
 
-import Helpers.PageActions;
-import Helpers.Waitings;
+
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 public class RSBankPage {
 
     private WebDriver driver;
-    PageActions pageActions = new PageActions();
-    Waitings waitings = new Waitings();
 
     public RSBankPage(WebDriver driver){
         this.driver = driver;
