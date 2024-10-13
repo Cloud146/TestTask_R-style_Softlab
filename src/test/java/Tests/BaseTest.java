@@ -28,7 +28,7 @@ public class BaseTest {
 
     @Description("Открытие браузера с соответствующими настройками")
     @BeforeTest(enabled = true)
-    public void browserSetUp(ITestContext context) throws IOException, IllegalAccessException {
+    public void browserSetUp() throws IOException, IllegalAccessException {
         driver = new ChromeDriver(new ChromeOptions()
                 .addArguments("--start-maximized")
                 .addArguments("--ignore-certificate-errors")

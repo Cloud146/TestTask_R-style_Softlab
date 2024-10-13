@@ -3,7 +3,7 @@
 <suite name="Test_Suite_1">
     <test name="Test1">
         <classes>
-            <class name="Tests.TestCase1"/>
+            <class name="PlaywtightTests.TestCase1"/>
         </classes>
     </test>
 </suite>
