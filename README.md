@@ -21,3 +21,5 @@
 | 9  | Закрыть вкладку с PDF-файлом                                        | Отображается страница «Автоматизированная банковская система для многофилиальных банков RS‑Bank V.6»                                                                                                                                                                                                                        |
 | 10 | Нажать на логотип компании в левом верхнем углу                     | Отображена главная страница. Присутствуют элементы: <br> - Логотип компании <br> - меню с пунктами: Продукты, Услуги, Решения, Поддержка, Медиа, Компания <br> - Иконка поиска по сайту <br> - Шапка страницы с кнопкой «Заказать консультацию»                                                                              |
 
+
+![Allure_Screenshot1]([https://github.com/Cloud146/SDET-UnitT-Functional-Testing-Test-Design/blob/TaskT3-TestPlan/Task_T4/Task4Pic.png](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen0.PNG) "Allure_Screenshot1")
