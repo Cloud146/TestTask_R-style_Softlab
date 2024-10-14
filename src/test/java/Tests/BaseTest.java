@@ -3,57 +3,71 @@ package Tests;
 import Helpers.ConfigurationProvider;
 import Helpers.OutputData;
 import Helpers.PageActions;
+import com.microsoft.playwright.*;
 import io.qameta.allure.Description;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
 
 public class BaseTest {
-    private WebDriver driver;
+
+    private Playwright playwright;
+    private Browser browser;
+    public BrowserContext context;
+    private Page page;
+
     SoftAssert softAssert = new SoftAssert();
     ConfigurationProvider configurationProvider = new ConfigurationProvider();
     OutputData outputData = new OutputData();
     PageActions pageActions = new PageActions();
 
-    public WebDriver getDriver(){
-        return driver;
+    public Page getPage() {
+        return page;
     }
 
     @Description("Открытие браузера с соответствующими настройками")
-    @BeforeTest(enabled = true)
-    public void browserSetUp(ITestContext context) throws IOException, IllegalAccessException {
-        driver = new ChromeDriver(new ChromeOptions()
-                .addArguments("--start-maximized")
-                .addArguments("--ignore-certificate-errors")
-                .addArguments("--disable-popup-blocking")
-                .addArguments("--remote-allow-origins=**")
-                .addArguments("--disable-extensions")
-                .addArguments("--disable-notifications")
-                .addArguments("--disable-infobars")
-                .addArguments("--no-default-browser-check")
-                .addArguments("--disable-first-run-ui")
-                .addArguments("--disable-features=AutofillAssistant")
-                .addArguments("--disable-features=TranslateUI")
-                .addArguments("--disable-features=ChromeWhatsNewUI")
-                .addArguments("--disable-features=ChromeTips")
-                .addArguments("--no-first-run"));
-        driver.manage().window().setSize(new Dimension(configurationProvider.getScreenWidth(), configurationProvider.getScreenHeight()));
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    @BeforeTest
+    public void browserSetUp() throws IOException {
+        playwright = Playwright.create();
 
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
+                .setHeadless(false)
+                .setArgs(Arrays.asList(
+                        "--ignore-certificate-errors",
+                        "--disable-popup-blocking",
+                        "--remote-allow-origins=**",
+                        "--disable-extensions",
+                        "--disable-notifications",
+                        "--disable-infobars",
+                        "--no-default-browser-check",
+                        "--disable-first-run-ui",
+                        "--disable-features=AutofillAssistant",
+                        "--disable-features=TranslateUI",
+                        "--disable-features=ChromeWhatsNewUI",
+                        "--disable-features=ChromeTips",
+                        "--no-first-run"
+                ))
+        );
+
+        context = browser.newContext(new Browser.NewContextOptions()
+                .setViewportSize(configurationProvider.getScreenWidth(), configurationProvider.getScreenHeight())
+        );
+
+        page = context.newPage();
+        page.setViewportSize(configurationProvider.getScreenWidth(), configurationProvider.getScreenHeight());
     }
 
     @Description("Закрытие браузера/Проверка выполнения теста")
     @AfterTest
-    public void browserTearDown(){
-        if (driver != null) {
-            driver.quit();
+    public void browserTearDown() {
+        if (browser != null) {
+            browser.close();
+        }
+        if (playwright != null) {
+            playwright.close();
         }
     }
 }

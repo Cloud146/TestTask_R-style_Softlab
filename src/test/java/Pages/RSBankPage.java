@@ -1,30 +1,27 @@
 package Pages;
 
-
+import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
 
 public class RSBankPage {
 
-    private WebDriver driver;
+    private Page page;
 
-    public RSBankPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public RSBankPage(Page page){
+        this.page = page;
     }
 
+
     /**
-     * Веб элемент: Карточка «RS-Bank V.6»
+     * Селектор для элемента карточка «RS-Bank V.6»
      */
-    @FindBy(xpath = "//a[@href = '/products/rs-bank-v-6/']")
-    public WebElement rsBankV6Card;
+    public String rsBankV6CardSelector = "//a[@href = '/products/rs-bank-v-6/']";
+
 
     @Step("Кликнуть на карточку «RS-Bank V.6»")
-    public RSBankV6Page clickOnRSBankV6Card(WebDriver driver){
-        rsBankV6Card.click();
-        return new RSBankV6Page(driver);
+    public RSBankV6Page clickOnRSBankV6Card(Page page){
+        page.click(rsBankV6CardSelector);
+        return new RSBankV6Page(page);
     }
 }

@@ -4,6 +4,7 @@
     <test name="Test1">
         <classes>
             <class name="Tests.TestCase1"/>
+            <class name="Cucumber.TestRunner"/>
         </classes>
     </test>
 </suite>

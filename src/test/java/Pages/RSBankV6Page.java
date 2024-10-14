@@ -1,44 +1,37 @@
 package Pages;
 
-import Helpers.PageActions;
+import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
 
 public class RSBankV6Page {
 
-    private WebDriver driver;
-    PageActions pageActions = new PageActions();
+    private Page page;
 
-    public RSBankV6Page(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public RSBankV6Page(Page page){
+        this.page = page;
     }
 
     /**
-     * Веб элемент: Карточка «Технические требования к программному и техническому обеспечению RS-Bank V.6»
+     * Селектор для элемента карточка «Технические требования к программному и техническому обеспечению RS-Bank V.6»
      */
-    @FindBy(xpath = "//div[contains(text(), 'Технические требования')]/..")
-    public WebElement technicalDocumentationCard;
+    public String technicalDocumentationCardSelector = "//div[contains(text(), 'Технические требования')]/..";
 
     /**
-     * Веб элемент: Кнопка логотипа компании
+     * Селектор для элемента кнопка логотипа компании
      */
-    @FindBy(xpath = "//div[@class = 'header__nav-top']")
-    public WebElement companyLogoButton;
+    public String companyLogoButtonSelector = "//div[@class = 'header__nav-top']";
+
 
     @Step("Кликнуть на карточку «Технические требования к программному и техническому обеспечению RS-Bank V.6»")
     public void clickOnTechnicalDocumentationCard(){
-        pageActions.actionMoveToElement(driver, technicalDocumentationCard);
-        technicalDocumentationCard.click();
+        page.hover(technicalDocumentationCardSelector);
+        page.click(technicalDocumentationCardSelector);
     }
 
     @Step("Кликнуть на кнопку логотипа компании")
-    public MainPage clickOnCompanyLogo(WebDriver driver){
-        companyLogoButton.click();
-        return new MainPage(driver);
+    public MainPage clickOnCompanyLogo(Page page){
+        page.click(companyLogoButtonSelector);
+        return new MainPage(page);
     }
-
 }
