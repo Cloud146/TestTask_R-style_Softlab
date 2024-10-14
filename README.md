@@ -22,8 +22,13 @@
 | 10 | Нажать на логотип компании в левом верхнем углу                     | Отображена главная страница. Присутствуют элементы: <br> - Логотип компании <br> - меню с пунктами: Продукты, Услуги, Решения, Поддержка, Медиа, Компания <br> - Иконка поиска по сайту <br> - Шапка страницы с кнопкой «Заказать консультацию»                                                                              |
 
 
+### Скриншоты отчета Allure
+
 ![Allure_Screenshot1](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen0.PNG "Allure_Screenshot1")
 
 ![Allure_Screenshot2](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen1.PNG "Allure_Screenshot2")
 
 ![Allure_Screenshot3](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen2.PNG "Allure_Screenshot3")
+
+
+Документация к запуску - https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/TestDocumentation.md
