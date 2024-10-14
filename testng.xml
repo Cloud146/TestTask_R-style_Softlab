@@ -3,7 +3,8 @@
 <suite name="Test_Suite_1">
     <test name="Test1">
         <classes>
-            <class name="PlaywtightTests.TestCase1"/>
+            <class name="Tests.TestCase1"/>
+            <class name="Cucumber.TestRunner"/>
         </classes>
     </test>
 </suite>

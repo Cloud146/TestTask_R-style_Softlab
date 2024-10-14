@@ -1,123 +1,110 @@
 package Pages;
 
+import Helpers.OutputData;
 import Helpers.PageActions;
-import Helpers.Waitings;
+import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class ImportSubstitutionPage {
 
-    private WebDriver driver;
+    private Page page;
+    OutputData outputData = new OutputData();
     PageActions pageActions = new PageActions();
 
-    public ImportSubstitutionPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public ImportSubstitutionPage(Page page){
+        this.page = page;
     }
 
     /**
-     * Веб элемент: Шапка страницы «Импортозамещение»
+     * Селектор для элемента шапка страницы «Импортозамещение»
      */
-    @FindBy(xpath = "//section[@class = 'site-header__inner']")
-    public WebElement header;
+    public String headerSelector = "//section[@class = 'site-header__inner']";
 
     /**
-     * Веб элемент: Меню категорий
+     * Селектор для элемента меню категорий
      */
-    @FindBy(xpath = "//div[@class = 'import-page__wrapper import-page__wrapper--top']")
-    public WebElement categoriesMenu;
+    public String categoriesMenuSelector = "//div[@class = 'import-page__wrapper import-page__wrapper--top']";
 
     /**
-     * Веб элемент: Блок категорий «Все производители» с плашками ПО
+     * Селектор для элемента блок категорий «Все производители» с плашками ПО
      */
-    @FindBy(xpath = "//div[@class = 'import-page__wrapper import-page__wrapper--top']/..")
-    public WebElement categoriesBlock;
+    public String categoriesBlockSelector = "//div[@class = 'import-page__wrapper import-page__wrapper--top']/..";
 
     /**
-     * Веб элемент: Блок «Почему стоит доверить проект по импортозамещению R-Style Softlab»
+     * Селектор для элемента блок «Почему стоит доверить проект по импортозамещению R-Style Softlab»
      */
-    @FindBy(xpath = "//section[@class = 'advantages']")
-    public WebElement advantagesBlock;
+    public String advantagesBlockSelector = "//section[@class = 'advantages']";
 
     /**
-     * Веб элемент: Блок «Наши клиенты»
+     * Селектор для элемента блок «Наши клиенты»
      */
-    @FindBy(xpath = "//section[@class = 'our-clients']")
-    public WebElement ourClientsBlock;
+    public String ourClientsBlockSelector = "//section[@class = 'our-clients']";
 
     /**
-     * Веб элемент: Подвал страницы «Импортозамещение» со ссылками
+     * Селектор для элемента подвал страницы «Импортозамещение» со ссылками
      */
-    @FindBy(xpath = "//footer[@class = 'footer']")
-    public WebElement footer;
+    public String footerSelector = "//footer[@class = 'footer']";
 
     /**
-     * Веб элемент: Кнопка категории «Все производители»
+     * Селектор для элемента кнопка категории «Все производители»
      */
-    @FindBy(xpath = "//a[text() = 'Все производители']")
-    public WebElement vendorsCategory;
+    public String vendorsCategorySelector = "//a[text() = 'Все производители']";
 
     /**
-     * Веб элемент: Кнопка категории «Программное обеспечение»
+     * Селектор для элемента кнопка категории «Программное обеспечение»
      */
-    @FindBy(xpath = "//a[text() = 'Программное обеспечение']")
-    public WebElement softwareCategory;
+    public String softwareCategorySelector = "//a[text() = 'Программное обеспечение']";
 
     /**
-     * Веб элемент: Кнопка категории «Оборудование»
+     * Селектор для элемента кнопка категории «Оборудование»
      */
-    @FindBy(xpath = "//a[text() = 'Оборудование']")
-    public WebElement equipmentCategory;
+    public String equipmentCategorySelector = "//a[text() = 'Оборудование']";
 
     /**
-     * Веб элемент: Ссылка на страницу «RS‑Bank»
+     * Селектор для элемента ссылка на страницу «RS‑Bank»
      */
-    @FindBy(xpath = "//a[text() = 'RS‑Bank']")
-    public WebElement rsBankLink;
-
-    @Step("Получение пунктов шапки текстом")
-    public String headerGetText(){
-        return header.getText();
-    }
-
-    @Step("Получение пунктов меню категорий текстом")
-    public String categoriesMenuGetText(){
-        return categoriesMenu.getText();
-    }
+    public String rsBankLinkSelector = "//a[text() = 'RS‑Bank']";
 
     @Step("Наведение на категорию «Программное обеспечение»")
     public ImportSubstitutionPage moveToSoftwareCategory(){
-        pageActions.actionMoveToElement(driver, softwareCategory);
+        page.hover(softwareCategorySelector);
         return this;
     }
 
     @Step("Переход по ссылке на страницу «RS‑Bank»")
-    public RSBankPage scrollDownAndClickRsBankLink(WebDriver driver){
-        pageActions.actionMoveToElement(driver, rsBankLink);
-        rsBankLink.click();
-        return new RSBankPage(driver);
+    public RSBankPage scrollDownAndClickRsBankLink(Page page){
+        page.hover(rsBankLinkSelector);
+        page.click(rsBankLinkSelector);
+        return new RSBankPage(page);
     }
 
-    @Step("Получение текста с блока категорий")
-    public String categoriesBlockGetText(){
-        return categoriesBlock.getText();
+    @Step("Проверка отображения и текста пунктов шапки")
+    public boolean headerCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, headerSelector, outputData.importSubstitutionHeaderText);
     }
 
-    @Step("Получение текста с блока «Почему стоит доверить проект по импортозамещению R-Style Softlab»")
-    public String advantagesBlockGetText(){
-        return advantagesBlock.getText();
+    @Step("Проверка отображения и текста пунктов меню категорий")
+    public boolean categoriesMenuCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, categoriesMenuSelector, outputData.importSubstitutionCategoriesMenuText);
     }
 
-    @Step("Получение текста с блока «Наши клиенты»")
-    public String ourClientsBlockGetText(){
-        return ourClientsBlock.getText();
+    @Step("Проверка отображения и текста блока категорий")
+    public boolean categoriesBlockCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, categoriesBlockSelector, outputData.importSubstitutionCategoriesBlockText);
     }
 
-    @Step("Получение текста с элемента подвала")
-    public String footerGetText(){
-        return footer.getText();
+    @Step("Проверка отображения и текста блока «Почему стоит доверить проект по импортозамещению R-Style Softlab»")
+    public boolean advantagesBlockCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, advantagesBlockSelector, outputData.importSubstitutionAdvantagesBlockText);
+    }
+
+    @Step("Проверка отображения и текста блока «Наши клиенты»")
+    public boolean ourClientsBlockCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, ourClientsBlockSelector, outputData.importSubstitutionOurClientsBlockText);
+    }
+
+    @Step("Проверка отображения и текста элемента подвала")
+    public boolean footerCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, footerSelector, outputData.importSubstitutionFooterText);
     }
 }

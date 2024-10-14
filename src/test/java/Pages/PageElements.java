@@ -1,93 +1,97 @@
 package Pages;
 
+import Helpers.OutputData;
 import Helpers.PageActions;
-import Helpers.Waitings;
+import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import java.util.Objects;
+
 
 public class PageElements {
 
-    private WebDriver driver;
+    private Page page;
     PageActions pageActions = new PageActions();
-    Waitings waitings = new Waitings();
+    OutputData outputData = new OutputData();
 
-    public PageElements(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public PageElements(Page page){
+        this.page = page;
     }
 
     /**
-     * Веб элемент: Кнопка принятия Cookie
+     * Селектор веб-элемента кнопки принятия Cookie
      */
-    @FindBy(xpath = "//button[@class = 'button button--cookie cookieswarn__ok']")
-    public WebElement cookieAcceptButton;
+    private String cookieAcceptButtonSelector = "//button[@class = 'button button--cookie cookieswarn__ok']";
+
 
     /**
-     * Веб элемент: Межстраничное верхнее меню
+     * Селектор веб-элемента межстраничное верхнее меню
      */
-    @FindBy(xpath = "//div[@class = 'js-menu header__menu-wrapper menu']")
-    public WebElement menuWrapper;
+    public String menuWrapperSelector = "//div[@class = 'js-menu header__menu-wrapper menu']";
+
 
     /**
-     * Веб элемент: Межстраничная кнопка «Поиск»
+     * Селектор веб-элемента межстраничная кнопка «Поиск»
      */
-    @FindBy(xpath = "//div[@class = 'js-menu-search menu__search menu__search_tablet']")
-    public WebElement searchButton;
+    private String searchButtonSelector = "//div[@class = 'js-menu-search menu__search menu__search_tablet']";
+
 
     /**
-     * Веб элемент: Пункт верхнего меню «Решения»
+     * Селектор веб-элемента пункт верхнего меню «Решения»
      */
-    @FindBy(xpath = "//ul[contains(@class, 'menu__item-submenu_solutions')]/..")
-    public WebElement solutionItem;
+    private String solutionItemSelector = "//ul[contains(@class, 'menu__item-submenu_solutions')]/..";
 
     /**
-     * Веб элемент: Выпадающее меню пункта «Решения»
+     * Селектор веб-элемента выпадающее меню пункта «Решения»
      */
-    @FindBy(xpath = "//ul[contains(@class, 'menu__item-submenu_solutions')]")
-    public WebElement solutionSubMenu;
+    private String solutionSubMenuSelector = "//ul[contains(@class, 'menu__item-submenu_solutions')]";
 
     /**
-     * Веб элемент: Пункт «Импортозамещение»выпадающего меню «Решения»
+     * Селектор веб-элемента пункт «Импортозамещение»выпадающего меню «Решения»
      */
-    @FindBy(xpath = "//div[text() = \'Импортозамещение\']/../..")
-    public WebElement importSubstitutionButton;
+    private String importSubstitutionButtonSelector = "//div[text() = \'Импортозамещение\']/../..";
 
-
-    @Step("Получение пунктов верхнего меню текстом")
-    public String menuWrapperGetText(){
-        return menuWrapper.getText();
+    @Step("Проверка отображения и текста пунктов верхнего меню")
+    public boolean menuWrapperCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, menuWrapperSelector, outputData.wrapperMenuText);
     }
 
     @Step("Проверка отображения кнопки поиска")
     public boolean searchButtonCheck(){
-        return searchButton.isDisplayed();
+        return page.isVisible(searchButtonSelector);
     }
 
     @Step("Наведение и раскрытие выпадающего меню пункта «Решения»")
-    public PageElements extendSolutionSubMenu(){
-        pageActions.actionMoveToElement(driver, solutionItem);
-        waitings.waitTimeForElement(5, driver, solutionSubMenu);
+    public PageElements extendSolutionSubMenu() {
+        page.hover(solutionItemSelector);
+        page.waitForSelector(solutionSubMenuSelector, new Page.WaitForSelectorOptions().setTimeout(5000));
         return this;
+    }
+
+    @Step("Проверка отображения и текста выпадающего меню пункта «Решения»")
+    public boolean solutionSubMenuCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, solutionSubMenuSelector, outputData.wrapperSolutionSubMenuText);
     }
 
     @Step("Получение пунктов выпадающего меню пункта «Решения» текстом")
     public String solutionSubMenuGetText(){
-        return solutionSubMenu.getText();
+        while (true){
+            if (!Objects.equals(page.innerText(solutionSubMenuSelector), "")){
+                return page.innerText(solutionSubMenuSelector);
+            }
+        }
     }
 
     @Step("Открытие пункта «Импортозамещение»")
-    public ImportSubstitutionPage openImportSubstitution(WebDriver driver){
-        importSubstitutionButton.click();
-        return new ImportSubstitutionPage(driver);
+    public ImportSubstitutionPage openImportSubstitution(Page page){
+        page.click(importSubstitutionButtonSelector);
+        return new ImportSubstitutionPage(page);
     }
 
     @Step("Принятие Cookie")
     public PageElements acceptCookie(){
-        waitings.waitTimeForElement(10, driver, cookieAcceptButton);
-        cookieAcceptButton.click();
+        page.waitForSelector(cookieAcceptButtonSelector, new Page.WaitForSelectorOptions().setTimeout(1000));
+        page.click(cookieAcceptButtonSelector);
         return this;
     }
 }

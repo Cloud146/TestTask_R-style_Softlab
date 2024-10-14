@@ -24,7 +24,6 @@ public class ConfigurationProvider {
         return ConfigurationManager.getInstance().getProperty("technicalDocumentation.pdf.url");
     }
 
-
     public Integer getScreenWidth() throws IOException {
         return Integer.parseInt(ConfigurationManager.getInstance().getProperty("screen.width"));
     }

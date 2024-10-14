@@ -58,7 +58,7 @@ public class OutputData {
             "Показать еще\n" +
             "Показанно 12 из 85";
 
-    public String ImportSubstitutionAdvantagesBlockText = "Почему стоит доверить проект\n" +
+    public String importSubstitutionAdvantagesBlockText = "Почему стоит доверить проект\n" +
             "по импортозамещению R‑Style Softlab\n" +
             "Бесплатный первичный аудит\n" +
             "\n" +
@@ -79,7 +79,7 @@ public class OutputData {
             "Приказ Минкомсвязи России № 486 от 20.09.2018\n" +
             "Приказ ФСТЭК №239";
 
-    public String ImportSubstitutionOurClientsBlockText = "Наши клиенты\n" +
+    public String importSubstitutionOurClientsBlockText = "Наши клиенты\n" +
             "Технологический партнёр крупнейших компаний России и СНГ\n" +
             "\n" +
             "Выполняем сложные проекты по цифровой трансформации на отечественных решениях для банков, страховых,\n" +
@@ -89,7 +89,7 @@ public class OutputData {
             "\n" +
             "Бесплатная консультация";
 
-    public String ImportSubstitutionFooterText = "Продукты\n" +
+    public String importSubstitutionFooterText = "Продукты\n" +
             "RS‑Bank\n" +
             "RS‑Interbank\n" +
             "RS‑Connect Pro\n" +
@@ -147,5 +147,7 @@ public class OutputData {
     public String blackBackgroundAndWhiteText = "rgb(255, 255, 255); rgb(43, 43, 43)";
 
     public String whiteBackgroundAndBlackText = "rgba(43, 43, 43, 0.7); rgba(0, 0, 0, 0)";
+
+    public String callBackButtonText = "Заказать консультацию";
 
 }

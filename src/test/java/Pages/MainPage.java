@@ -1,52 +1,54 @@
 package Pages;
 
+import Helpers.OutputData;
+import Helpers.PageActions;
+import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import java.util.Objects;
+
 
 public class MainPage {
 
-    private WebDriver driver;
+    private Page page;
+    OutputData outputData = new OutputData();
+    PageActions pageActions = new PageActions();
 
-    public MainPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public MainPage(Page page){
+        this.page = page;
     }
 
     /**
-     * Веб элемент: Логотип компании
+     * Селектор для логотипа компании
      */
-    @FindBy(xpath = "//span[@class= 'header__logotype']")
-    public WebElement companyLogo;
+    private String companyLogoSelector = "//span[@class= 'header__logotype']";
 
     /**
-     * Веб элемент: Шапка главной страницы
+     * Селектор для шапки главной страницы
      */
-    @FindBy(xpath = "//section[@class = 'site-header__inner']")
-    public WebElement mainPageHeader;
+    private String mainPageHeaderSelector = "//section[@class = 'site-header__inner']";
 
     /**
-     * Веб элемент: Кнопка «Заказать консультацию»
+     * Селектор для кнопки «Заказать консультацию»
      */
-    @FindBy(xpath = "//a[@class = 'button']")
-    public WebElement callbackButton;
+    private String  callbackButtonSelector = "//a[@class = 'button']";
 
     @Step("Проверка отображения логотипа компании")
     public boolean companyLogoCheck(){
-        return companyLogo.isDisplayed();
+        while (true){
+            if (!Objects.equals(page.isVisible(companyLogoSelector), false)){
+                return page.isVisible(companyLogoSelector);
+            }
+        }
     }
 
     @Step("Проверка отображения шапки главной страницы")
     public boolean headerCheck(){
-        return mainPageHeader.isDisplayed();
+        return page.isVisible(mainPageHeaderSelector);
     }
 
-    @Step("Получение текста кнопки «Заказать консультацию»")
-    public String callBackButtonGetText(){
-        return callbackButton.getText();
+    @Step("Проверка отображения и текста кнопки «Заказать консультацию»")
+    public boolean callBackButtonCheck(){
+        return pageActions.elementVisibleAndTextCheck(page, callbackButtonSelector, outputData.callBackButtonText );
     }
 }
-
-
