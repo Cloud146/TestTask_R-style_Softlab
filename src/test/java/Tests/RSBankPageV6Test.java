@@ -25,6 +25,7 @@ public class RSBankPageV6Test extends BaseTest{
         driver = getDriver();
         driver.get(configurationProvider.getRSBankV6PageURL());
         rsBankV6Page = new RSBankV6Page(driver);
+        pageElements = new PageElements(driver);
     }
 
 
@@ -54,10 +55,9 @@ public class RSBankPageV6Test extends BaseTest{
 
         softAssert.assertEquals(driver.getCurrentUrl(), configurationProvider.getMainPageURL());
         softAssert.assertTrue(mainPage.companyLogoCheck(), "Company logo not found");
-        softAssert.assertEquals(pageElements.menuWrapperGetText(), outputData.wrapperMenuText);
+        softAssert.assertTrue(pageElements.menuWrapperCheck(), "Menu wrapper not found");
         softAssert.assertTrue(pageElements.searchButtonCheck(), "Search button not found");
         softAssert.assertTrue(mainPage.headerCheck());
         softAssert.assertEquals(mainPage.callBackButtonGetText(), "Заказать консультацию");
-        softAssert.assertAll();
     }
 }

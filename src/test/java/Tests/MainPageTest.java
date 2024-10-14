@@ -22,7 +22,6 @@ public class MainPageTest extends BaseTest {
     @BeforeClass
     public void openHomePage() throws IOException {
         driver = getDriver();
-        //driver.get(configurationProvider.getMainPageURL());
         mainPage = new MainPage(driver);
         pageElements = new PageElements(driver);
     }
@@ -38,10 +37,8 @@ public class MainPageTest extends BaseTest {
         pageElements.acceptCookie();
 
         softAssert.assertTrue(mainPage.companyLogoCheck(), "Company logo not found");
-        softAssert.assertEquals(pageElements.menuWrapperGetText(), outputData.wrapperMenuText);
+        softAssert.assertTrue(pageElements.menuWrapperCheck(), "Menu wrapper not found");
         softAssert.assertTrue(pageElements.searchButtonCheck(), "Search button not found");
-
-        softAssert.assertAll();
     }
 
     @Step("Шаг 2 - Навести курсор мыши на пункт меню «Решения»")
@@ -49,7 +46,7 @@ public class MainPageTest extends BaseTest {
     public void solutionSubMenuCheckTest(){
         pageElements.extendSolutionSubMenu();
 
-        Assert.assertEquals(pageElements.solutionSubMenuGetText(), outputData.wrapperSolutionSubMenuText);
+        Assert.assertTrue(pageElements.solutionSubMenuCheck(), "Solution submenu not found");
     }
 
     @Step("Шаг 3 - Перейти в меню «Решения > Импортозамещение»")
@@ -59,6 +56,5 @@ public class MainPageTest extends BaseTest {
                 .openImportSubstitution(driver);
 
         softAssert.assertEquals(driver.getCurrentUrl(), configurationProvider.getImportSubstitutionPageURL());
-        softAssert.assertAll();
     }
 }

@@ -1,5 +1,6 @@
 package Pages;
 
+import Helpers.OutputData;
 import Helpers.PageActions;
 import Helpers.Waitings;
 import io.qameta.allure.Step;
@@ -12,6 +13,8 @@ public class ImportSubstitutionPage {
 
     private WebDriver driver;
     PageActions pageActions = new PageActions();
+    OutputData outputData = new OutputData();
+    Waitings waitings = new Waitings();
 
     public ImportSubstitutionPage(WebDriver driver){
         this.driver = driver;
@@ -78,15 +81,16 @@ public class ImportSubstitutionPage {
     @FindBy(xpath = "//a[text() = 'RS‑Bank']")
     public WebElement rsBankLink;
 
-    @Step("Получение пунктов шапки текстом")
-    public String headerGetText(){
-        return header.getText();
+    @Step("Проверка отображения и текста шапки страницы")
+    public boolean headerCheck(){
+        return pageActions.elementVisibleAndTextCheck(header, outputData.importSubstitutionHeaderText);
     }
 
-    @Step("Получение пунктов меню категорий текстом")
-    public String categoriesMenuGetText(){
-        return categoriesMenu.getText();
+    @Step("Проверка отображения и текста пунктов меню категорий")
+    public boolean categoriesMenuCheck(){
+        return pageActions.elementVisibleAndTextCheck(categoriesMenu, outputData.importSubstitutionCategoriesMenuText);
     }
+
 
     @Step("Наведение на категорию «Программное обеспечение»")
     public ImportSubstitutionPage moveToSoftwareCategory(){
@@ -101,23 +105,26 @@ public class ImportSubstitutionPage {
         return new RSBankPage(driver);
     }
 
-    @Step("Получение текста с блока категорий")
-    public String categoriesBlockGetText(){
-        return categoriesBlock.getText();
+
+    @Step("Проверка отображения и текста блока категорий")
+    public boolean categoriesBlockCheck(){
+        return pageActions.elementVisibleAndTextCheck(categoriesBlock, outputData.importSubstitutionCategoriesBlockText);
     }
 
-    @Step("Получение текста с блока «Почему стоит доверить проект по импортозамещению R-Style Softlab»")
-    public String advantagesBlockGetText(){
-        return advantagesBlock.getText();
+
+    @Step("Проверка отображения и текста блока «Почему стоит доверить проект по импортозамещению R-Style Softlab»")
+    public boolean advantagesBlockCheck(){
+        return pageActions.elementVisibleAndTextCheck(advantagesBlock, outputData.importSubstitutionAdvantagesBlockText);
     }
 
-    @Step("Получение текста с блока «Наши клиенты»")
-    public String ourClientsBlockGetText(){
-        return ourClientsBlock.getText();
+    @Step("Проверка отображения и текста блока «Наши клиенты")
+    public boolean ourClientsBlockCheck(){
+        return pageActions.elementVisibleAndTextCheck(ourClientsBlock, outputData.importSubstitutionOurClientsBlockText);
     }
 
-    @Step("Получение текста с элемента подвала")
-    public String footerGetText(){
-        return footer.getText();
+    @Step("Проверка отображения и текста элемента подвала")
+    public boolean footerCheck(){
+        waitings.waitForVisibility(driver, footer, 5);
+        return pageActions.elementVisibleAndTextCheck(footer, outputData.importSubstitutionFooterText);
     }
 }

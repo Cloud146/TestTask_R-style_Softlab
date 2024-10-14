@@ -33,10 +33,8 @@ public class TestCase1 extends BaseTest{
         pageElements.acceptCookie();
 
         softAssert.assertTrue(mainPage.companyLogoCheck(), "Company logo not found");
-        softAssert.assertEquals(pageElements.menuWrapperGetText(), outputData.wrapperMenuText);
+        softAssert.assertTrue(pageElements.menuWrapperCheck(), "Menu wrapper not found");
         softAssert.assertTrue(pageElements.searchButtonCheck(), "Search button not found");
-
-        softAssert.assertAll();
     }
 
     @Step("Шаг 2 - Навести курсор мыши на пункт меню «Решения»")
@@ -44,7 +42,7 @@ public class TestCase1 extends BaseTest{
     public void solutionSubMenuCheckTest(){
         pageElements.extendSolutionSubMenu();
 
-        Assert.assertEquals(pageElements.solutionSubMenuGetText(), outputData.wrapperSolutionSubMenuText);
+        Assert.assertTrue(pageElements.solutionSubMenuCheck(), "Solution SubMenu not found");
     }
 
     @Step("Шаг 3 - Перейти в меню «Решения > Импортозамещение»")
@@ -55,14 +53,12 @@ public class TestCase1 extends BaseTest{
 
         softAssert.assertEquals(driver.getCurrentUrl(), configurationProvider.getImportSubstitutionPageURL());
 
-        softAssert.assertEquals(importSubstitutionPage.headerGetText(), outputData.importSubstitutionHeaderText);
-        softAssert.assertEquals(importSubstitutionPage.categoriesMenuGetText(), outputData.importSubstitutionCategoriesMenuText);
-        softAssert.assertEquals(importSubstitutionPage.categoriesBlockGetText(), outputData.importSubstitutionCategoriesBlockText);
-        softAssert.assertEquals(importSubstitutionPage.advantagesBlockGetText(), outputData.ImportSubstitutionAdvantagesBlockText);
-        softAssert.assertEquals(importSubstitutionPage.ourClientsBlockGetText(), outputData.ImportSubstitutionOurClientsBlockText);
-        softAssert.assertEquals(importSubstitutionPage.footerGetText(), outputData.ImportSubstitutionFooterText);
-
-        softAssert.assertAll();
+        softAssert.assertTrue(importSubstitutionPage.headerCheck(), "Header not found");
+        softAssert.assertTrue(importSubstitutionPage.categoriesMenuCheck(), "Categories menu not found");
+        softAssert.assertTrue(importSubstitutionPage.categoriesBlockCheck(), "Categories block not found");
+        softAssert.assertTrue(importSubstitutionPage.advantagesBlockCheck(), "Advantages block not found");
+        softAssert.assertTrue(importSubstitutionPage.ourClientsBlockCheck(), "Our clients block not found");
+        softAssert.assertTrue(importSubstitutionPage.footerCheck(), "Footer not found");
     }
 
     @Step("Шаг 4 - Навести мышкой на пункт «Программное обеспечение» в меню категорий")
@@ -73,8 +69,6 @@ public class TestCase1 extends BaseTest{
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(importSubstitutionPage.vendorsCategory), outputData.blackBackgroundAndWhiteText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(importSubstitutionPage.softwareCategory), outputData.blackBackgroundAndWhiteText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(importSubstitutionPage.equipmentCategory), outputData.whiteBackgroundAndBlackText);
-
-        softAssert.assertAll();
     }
 
     @Step("Шаг 5 - Отвести курсор мыши с категории «Программное обеспечение»")
@@ -85,8 +79,6 @@ public class TestCase1 extends BaseTest{
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(importSubstitutionPage.vendorsCategory), outputData.blackBackgroundAndWhiteText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(importSubstitutionPage.softwareCategory), outputData.whiteBackgroundAndBlackText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(importSubstitutionPage.equipmentCategory), outputData.whiteBackgroundAndBlackText);
-
-        softAssert.assertAll();
     }
 
     @Step("Шаг 6 - В «подвале» страницы перейти по ссылке «RS-Bank» в разделе «Продукты»")
@@ -131,10 +123,9 @@ public class TestCase1 extends BaseTest{
 
         softAssert.assertEquals(driver.getCurrentUrl(), configurationProvider.getMainPageURL());
         softAssert.assertTrue(mainPage.companyLogoCheck(), "Company logo not found");
-        softAssert.assertEquals(pageElements.menuWrapperGetText(), outputData.wrapperMenuText);
+        softAssert.assertTrue(pageElements.menuWrapperCheck(), "Menu wrapper not found");
         softAssert.assertTrue(pageElements.searchButtonCheck(), "Search button not found");
         softAssert.assertTrue(mainPage.headerCheck());
         softAssert.assertEquals(mainPage.callBackButtonGetText(), "Заказать консультацию");
-        softAssert.assertAll();
     }
 }

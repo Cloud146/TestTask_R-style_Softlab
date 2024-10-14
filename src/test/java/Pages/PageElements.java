@@ -1,5 +1,6 @@
 package Pages;
 
+import Helpers.OutputData;
 import Helpers.PageActions;
 import Helpers.Waitings;
 import io.qameta.allure.Step;
@@ -13,6 +14,7 @@ public class PageElements {
     private WebDriver driver;
     PageActions pageActions = new PageActions();
     Waitings waitings = new Waitings();
+    OutputData outputData = new OutputData();
 
     public PageElements(WebDriver driver){
         this.driver = driver;
@@ -56,9 +58,9 @@ public class PageElements {
     public WebElement importSubstitutionButton;
 
 
-    @Step("Получение пунктов верхнего меню текстом")
-    public String menuWrapperGetText(){
-        return menuWrapper.getText();
+    @Step("Проверка отображения и текста пунктов верхнего меню")
+    public boolean menuWrapperCheck(){
+        return pageActions.elementVisibleAndTextCheck(menuWrapper, outputData.wrapperMenuText);
     }
 
     @Step("Проверка отображения кнопки поиска")
@@ -73,10 +75,11 @@ public class PageElements {
         return this;
     }
 
-    @Step("Получение пунктов выпадающего меню пункта «Решения» текстом")
-    public String solutionSubMenuGetText(){
-        return solutionSubMenu.getText();
+    @Step("Проверка отображения и текста пунктов выпадающего меню пункта «Решения»")
+    public boolean solutionSubMenuCheck(){
+        return pageActions.elementVisibleAndTextCheck(solutionSubMenu, outputData.wrapperSolutionSubMenuText);
     }
+
 
     @Step("Открытие пункта «Импортозамещение»")
     public ImportSubstitutionPage openImportSubstitution(WebDriver driver){

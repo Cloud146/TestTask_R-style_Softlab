@@ -10,6 +10,7 @@ public class PageActions {
 
     public JavascriptExecutor jse;
     public Actions actions;
+    public Waitings waitings = new Waitings();
 
 
     @Step("Наведение курсора мыши на элемент")
@@ -28,5 +29,12 @@ public class PageActions {
         for (String lastTab : driver.getWindowHandles()) {
             driver.switchTo().window(lastTab);
         }
+    }
+
+    @Step("Проверка отображения и совпадения текста элемента")
+    public boolean elementVisibleAndTextCheck(WebElement element, String text){
+        if (element.isDisplayed())
+            return element.getText().equals(text);
+        return false;
     }
 }

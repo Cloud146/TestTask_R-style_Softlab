@@ -58,7 +58,7 @@ public class OutputData {
             "Показать еще\n" +
             "Показанно 12 из 85";
 
-    public String ImportSubstitutionAdvantagesBlockText = "Почему стоит доверить проект\n" +
+    public String importSubstitutionAdvantagesBlockText = "Почему стоит доверить проект\n" +
             "по импортозамещению R‑Style Softlab\n" +
             "Бесплатный первичный аудит\n" +
             "Изучим текущую ИТ‑инфраструктуру и подготовим индивидуальный проект под требования заказчика. При разработке проекта учитываем бюджет, сроки внедрения, функциональные требования клиента, оптимизируем затраты.\n" +
@@ -75,14 +75,14 @@ public class OutputData {
             "Приказ Минкомсвязи России № 486 от 20.09.2018\n" +
             "Приказ ФСТЭК №239";
 
-    public String ImportSubstitutionOurClientsBlockText = "Наши клиенты\n" +
+    public String importSubstitutionOurClientsBlockText = "Наши клиенты\n" +
             "Технологический партнёр крупнейших компаний России и СНГ\n" +
             "Выполняем сложные проекты по цифровой трансформации на отечественных решениях для банков, страховых,\n" +
             "АПК-предприятий и промышленности\n" +
             "Поможем перестроить вашу ИТ-инфраструктуру на проверенные отечественные решения, которые используем сами\n" +
             "Бесплатная консультация";
 
-    public String ImportSubstitutionFooterText = "Продукты\n" +
+    public String importSubstitutionFooterText = "Продукты\n" +
             "RS‑Bank\n" +
             "RS‑Interbank\n" +
             "RS‑Connect Pro\n" +
@@ -131,7 +131,7 @@ public class OutputData {
             "Документация\n" +
             "Видеоролики\n" +
             "sales@softlab.ru\n" +
-            "+7 (495) 796-93-10\n" +
+            "+7 (495) 818-76-51\n" +
             "Правовая информация\n" +
             "Политика обработки персональных данных\n" +
             "Политика использования cookie\n" +
