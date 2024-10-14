@@ -23,3 +23,7 @@
 
 
 ![Allure_Screenshot1](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen0.PNG "Allure_Screenshot1")
+
+![Allure_Screenshot2](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen1.PNG "Allure_Screenshot2")
+
+![Allure_Screenshot3](https://github.com/Cloud146/TestTask_R-style_Softlab/blob/master/AllureScreen2.PNG "Allure_Screenshot3")
