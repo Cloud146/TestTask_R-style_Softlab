@@ -1,8 +1,8 @@
 package Helpers;
 
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-
 import java.util.Objects;
 
 public class PageActions {
@@ -14,17 +14,26 @@ public class PageActions {
     }
 
     @Step("Проверка отображения и совпадения текста элемента")
-    public boolean elementVisibleAndTextCheck(Page page, String selector, String outputData){
+    public boolean elementVisibleAndTextCheck(Page page, String selector, String outputData) {
         if (page.isVisible(selector)) {
-            String actualText;
-            while (true){
-                if (!Objects.equals(page.innerText(selector), "")){
+            String actualText = "";
+            int attempts = 0;
+
+            while (attempts < 5) {  // Ограничиваем число попыток до 5
+                if (!Objects.equals(page.innerText(selector), "")) {
                     actualText = page.innerText(selector);
                     break;
                 }
+                attempts++;
             }
             return actualText.equals(outputData);
         }
         return false;
+    }
+
+    @Attachment(value = "{screenshotName}", type = "image/png")
+    @Step("Сделать скриншот страницы")
+    public static byte[] takeScreenshot(Page page, String screenshotName) {
+        return page.screenshot();
     }
 }

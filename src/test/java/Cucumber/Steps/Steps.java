@@ -10,6 +10,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.qameta.allure.Attachment;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -233,6 +234,12 @@ public class Steps {
     @Then("В новой вкладке открывается содержимое PDF-файла  «Требования к техническому и программному обеспечению RS-Bank V.6»")
     public void checkTechnicalDocumentationPDFURL() throws IOException {
         softAssert.assertEquals(newPage.url(), configurationProvider.getTechnicalDocumentationPDFURL());
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        PageActions.takeScreenshot(newPage, "Скриншот PDF-файла");
     }
 
     @Given("Пользователь находится на новой вкладке PDF-файла  «Требования к техническому и программному обеспечению RS-Bank V.6»")

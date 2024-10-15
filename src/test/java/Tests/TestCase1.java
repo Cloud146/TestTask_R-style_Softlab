@@ -1,8 +1,11 @@
 package Tests;
 
 
+import Helpers.PageActions;
 import Pages.*;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Request;
+import com.microsoft.playwright.Response;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -31,12 +34,9 @@ public class TestCase1 extends  BaseTest{
         mainPage = new MainPage(page);
         pageElements = new PageElements(page);
 
-        //pageElements.acceptCookie();
-
         softAssert.assertTrue(mainPage.companyLogoCheck(), "Company logo not found");
         softAssert.assertTrue(pageElements.menuWrapperCheck(), "Menu wrapper not found");
         softAssert.assertTrue(pageElements.searchButtonCheck(), "Search button not found");
-        softAssert.assertAll();
     }
 
     @Step("Шаг 2 - Навести курсор мыши на пункт меню «Решения»")
@@ -44,7 +44,6 @@ public class TestCase1 extends  BaseTest{
     public void solutionSubMenuCheckTest() {
         pageElements.extendSolutionSubMenu();
         softAssert.assertTrue(pageElements.solutionSubMenuCheck(), "Solution sub menu not found");
-        softAssert.assertAll();
     }
 
     @Step("Шаг 3 - Перейти в меню «Решения > Импортозамещение»")
@@ -61,7 +60,6 @@ public class TestCase1 extends  BaseTest{
         softAssert.assertTrue(importSubstitutionPage.advantagesBlockCheck(), "Advantages bloc not found");
         softAssert.assertTrue(importSubstitutionPage.ourClientsBlockCheck(), "Our clients bloc not found");
         softAssert.assertTrue(importSubstitutionPage.footerCheck(), "Footer not found");
-        softAssert.assertAll();
     }
 
     @Step("Шаг 4 - Навести мышкой на пункт «Программное обеспечение» в меню категорий")
@@ -72,8 +70,6 @@ public class TestCase1 extends  BaseTest{
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(page, importSubstitutionPage.vendorsCategorySelector), outputData.blackBackgroundAndWhiteText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(page, importSubstitutionPage.softwareCategorySelector), outputData.blackBackgroundAndWhiteText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(page, importSubstitutionPage.equipmentCategorySelector), outputData.whiteBackgroundAndBlackText);
-
-        softAssert.assertAll();
     }
 
     @Step("Шаг 5 - Отвести курсор мыши с категории «Программное обеспечение»")
@@ -84,8 +80,6 @@ public class TestCase1 extends  BaseTest{
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(page, importSubstitutionPage.vendorsCategorySelector), outputData.blackBackgroundAndWhiteText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(page, importSubstitutionPage.softwareCategorySelector), outputData.whiteBackgroundAndBlackText);
         softAssert.assertEquals(pageActions.textAndBackgroundColorFromElement(page, importSubstitutionPage.equipmentCategorySelector), outputData.whiteBackgroundAndBlackText);
-
-        softAssert.assertAll();
     }
 
     @Step("Шаг 6 - В «подвале» страницы перейти по ссылке «RS-Bank» в разделе «Продукты»")
@@ -112,6 +106,21 @@ public class TestCase1 extends  BaseTest{
         });
         newPage.waitForLoadState();
         Assert.assertEquals(newPage.url(), configurationProvider.getTechnicalDocumentationPDFURL());
+
+        newPage.route("**/*.pdf", route -> {
+            Request request = route.request();
+            Response response = request.response();
+            Assert.assertNotNull(response, "Ответ не должен быть null");
+            Assert.assertTrue(response.headers().get("content-type").contains("application/pdf"),
+                    "Контент должен быть PDF");
+        });
+
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        PageActions.takeScreenshot(newPage, "Скриншот PDF-файла");
     }
 
     @Step("Шаг 9 - Закрыть вкладку с PDF-файлом")
@@ -138,6 +147,5 @@ public class TestCase1 extends  BaseTest{
         softAssert.assertTrue(pageElements.searchButtonCheck(), "Search button not found");
         softAssert.assertTrue(mainPage.headerCheck(), "Header button not found");
         softAssert.assertTrue(mainPage.callBackButtonCheck(), "Callback button button not found");
-        softAssert.assertAll();
     }
 }

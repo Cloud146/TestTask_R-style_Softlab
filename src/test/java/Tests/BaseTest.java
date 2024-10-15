@@ -19,7 +19,7 @@ public class BaseTest {
     public BrowserContext context;
     private Page page;
 
-    SoftAssert softAssert = new SoftAssert();
+    SoftAssert softAssert;
     ConfigurationProvider configurationProvider = new ConfigurationProvider();
     OutputData outputData = new OutputData();
     PageActions pageActions = new PageActions();
@@ -32,6 +32,7 @@ public class BaseTest {
     @BeforeTest
     public void browserSetUp() throws IOException {
         playwright = Playwright.create();
+        softAssert = new SoftAssert();
 
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
                 .setHeadless(false)
@@ -63,6 +64,7 @@ public class BaseTest {
     @Description("Закрытие браузера/Проверка выполнения теста")
     @AfterTest
     public void browserTearDown() {
+        softAssert.assertAll();
         if (browser != null) {
             browser.close();
         }

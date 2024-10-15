@@ -35,11 +35,14 @@ public class MainPage {
 
     @Step("Проверка отображения логотипа компании")
     public boolean companyLogoCheck(){
-        while (true){
+        int attempts = 0;
+        while (attempts < 5){
             if (!Objects.equals(page.isVisible(companyLogoSelector), false)){
                 return page.isVisible(companyLogoSelector);
             }
+            attempts++;
         }
+        return page.isVisible(companyLogoSelector);
     }
 
     @Step("Проверка отображения шапки главной страницы")
